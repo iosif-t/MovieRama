@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Workable</title>
+</head>
+<body>
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form th:action="@{/movies}" th:object="${movie}" method="post">
+                    <div class="form-outline mb-4">
+                        <input type="text" id="title" th:field="*{title}" class="form-control form-control-lg"
+                               placeholder="Enter the movie title" />
+                        <label class="form-label" for="title">Title</label>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea rows="5" class="form-control" th:field="*{description}" id="description" placeholder="Enter description"></textarea>
+                        <label for="description">description:</label>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

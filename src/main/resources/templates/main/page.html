@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>MovieRama</title>
+</head>
+<body>
+    <h1>MovieRama</h1>
+    <br>
+    <div sec:authorize="!isAuthenticated()">
+        <a class="btn btn-primary" href="/login" method="get" id="logIn" role="button">Log in</a>
+      <br>Dont have an account?<br><a class="btn btn-primary" href="/signup" id="mainSignUp" method="get" role="button">Sign up</a>
+    </div>
+    <div sec:authorize="isAuthenticated()" th:inline="text">
+        Welcome [[${#httpServletRequest.remoteUser}]]!
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">Sign Out</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class = "d-flex align-items-center flex-column">
+        <div class="row">
+           <div class="col-8">
+
+               Sort by:
+               <a class="btn btn-primary btn-sm" th:href="@{/sortByLike}" method="get">Likes</a>
+               <a class="btn btn-primary btn-sm" th:href="@{/sortByHate}" method="get">Hates</a>
+               <a class="btn btn-primary btn-sm" th:href="@{/sortByDate}" method="get">Date</a>
+
+               <ul class="list-group" th:each="movie:${movies}">
+                   <li class="list-group-item">
+                       <p>
+                       <h4  class="text-left" th:text="${movie.title}"></h4>
+                       <p  class="text-left" ${movie.getDateOffset()}>Posted by
+                           <a th:href="@{/userMovies(userId = ${movie.getUser().getId()})}" method="get" role="button">
+                               <span th:if="${#httpServletRequest.remoteUser} ne ${movie.getUser().getUsername()}" th:text="${movie.getUser().getUsername()}"></span>
+                               <span th:if="${#httpServletRequest.remoteUser} eq ${movie.getUser().getUsername()}" th:text="you"></span>
+                           </a>
+                           [[${movie.getDateOffset()}]].
+                       </p>
+                       </p>
+                       <p style="white-space: pre-line" th:text="${movie.description}"></p>
+                       <p>
+                           <a class="btn btn-primary" th:href="@{/vote(movieId = ${movie.id},type='LIKE')}" method="get" role="button">Like</a>
+                           <a th:text="${movie.getLikes().size()}"></a> |
+                           <a class="btn btn-primary"  th:href="@{/vote(movieId = ${movie.id},type='HATE')}"  method="get" role="button">Hate</a>
+                           <a th:text="${movie.getHates().size()}"></a>
+                       </p>
+                   </li>
+               </ul>
+           </div>
+
+            <div class="col-4">
+                <a class="btn btn-primary" href="/movies" method="get" role="button">New movie</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
