@@ -2,16 +2,13 @@ package project.iosif.movieRama.services;
 
 
 import org.springframework.stereotype.Service;
-import project.iosif.movieRama.comparators.DateComparator;
-import project.iosif.movieRama.comparators.HateComparator;
-import project.iosif.movieRama.comparators.LikeComparator;
-import project.iosif.movieRama.repositories.MovieRepository;
-import project.iosif.movieRama.repositories.UserRepository;
-import project.iosif.movieRama.repositories.VoteRepository;
 import project.iosif.movieRama.domain.MUser;
 import project.iosif.movieRama.domain.Movie;
 import project.iosif.movieRama.domain.Vote;
 import project.iosif.movieRama.domain.VoteType;
+import project.iosif.movieRama.repositories.MovieRepository;
+import project.iosif.movieRama.repositories.UserRepository;
+import project.iosif.movieRama.repositories.VoteRepository;
 import project.iosif.movieRama.utils.MovieUtils;
 
 import java.util.*;
